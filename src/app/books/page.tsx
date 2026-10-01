@@ -1,7 +1,11 @@
-import { books } from "@/data/books";
+// import { books } from "@/data/books";
+import { getBooks } from "@/data/books";
 import Link from "next/link";
 
-export default function page() {
+export default async function page() {
+
+  const books = await getBooks();
+  
   return (
     <main>
       <h1>Book List</h1>

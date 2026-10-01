@@ -89,3 +89,9 @@ export const books: BookType[] = [
         description: "Bilbo Baggins, a comfortable hobbit, is swept into an adventure with dwarves and a wizard to reclaim treasure from the dragon Smaug."
     }
 ];
+
+// Fake slow fetch
+export async function getBooks() {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return books;
+}
