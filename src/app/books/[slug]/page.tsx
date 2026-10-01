@@ -6,7 +6,11 @@ type PropsType = {
   params: Promise<{ slug: string }>;
 };
 
-export default async function page({ params }: PropsType) {
+export function generateStaticParams() {
+  return books.map(book => ({ slug: book.slug }));
+}
+
+export default async function Book({ params }: PropsType) {
   const { slug } = await params;
   const selectedBook = books.find((book) => book.slug === slug);
 
