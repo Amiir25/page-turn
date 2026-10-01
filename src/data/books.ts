@@ -1,5 +1,6 @@
 export type BookType = {
     id: number;
+    slug: string;
     title: string;
     author: string;
     year: number;
@@ -9,6 +10,7 @@ export type BookType = {
 export const books: BookType[] = [
     {
         id: 1,
+        slug: "to-kill-a-mockingbird",
         title: "To Kill a Mockingbird",
         author: "Harper Lee",
         year: 1960,
@@ -16,6 +18,7 @@ export const books: BookType[] = [
     },
     {
         id: 2,
+        slug: "1984",
         title: "1984",
         author: "George Orwell",
         year: 1949,
@@ -23,6 +26,7 @@ export const books: BookType[] = [
     },
     {
         id: 3,
+        slug: "pride-and-prejudice",
         title: "Pride and Prejudice",
         author: "Jane Austen",
         year: 1813,
@@ -30,6 +34,7 @@ export const books: BookType[] = [
     },
     {
         id: 4,
+        slug: "the-great-gatsby",
         title: "The Great Gatsby",
         author: "F. Scott Fitzgerald",
         year: 1925,
@@ -37,6 +42,7 @@ export const books: BookType[] = [
     },
     {
         id: 5,
+        slug: "one-hundred-years-of-solitude",
         title: "One Hundred Years of Solitude",
         author: "Gabriel García Márquez",
         year: 1967,
@@ -44,6 +50,7 @@ export const books: BookType[] = [
     },
     {
         id: 6,
+        slug: "the-catcher-in-the-rye",
         title: "The Catcher in the Rye",
         author: "J. D. Salinger",
         year: 1951,
@@ -51,6 +58,7 @@ export const books: BookType[] = [
     },
     {
         id: 7,
+        slug: "things-fall-apart",
         title: "Things Fall Apart",
         author: "Chinua Achebe",
         year: 1958,
@@ -58,6 +66,7 @@ export const books: BookType[] = [
     },
     {
         id: 8,
+        slug: "dune",
         title: "Dune",
         author: "Frank Herbert",
         year: 1965,
@@ -65,6 +74,7 @@ export const books: BookType[] = [
     },
     {
         id: 9,
+        slug: "beloved",
         title: "Beloved",
         author: "Toni Morrison",
         year: 1987,
@@ -72,6 +82,7 @@ export const books: BookType[] = [
     },
     {
         id: 10,
+        slug: "the-hobbit",
         title: "The Hobbit",
         author: "J. R. R. Tolkien",
         year: 1937,
