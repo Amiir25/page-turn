@@ -3,12 +3,12 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 type PropsType = {
-  params: Promise<{ bookId: string }>;
+  params: Promise<{ slug: string }>;
 };
 
 export default async function page({ params }: PropsType) {
-  const { bookId } = await params;
-  const selectedBook = books.find((book) => book.id === Number(bookId));
+  const { slug } = await params;
+  const selectedBook = books.find((book) => book.slug === slug);
 
   if (!selectedBook) {
     notFound();
