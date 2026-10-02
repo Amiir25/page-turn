@@ -1,3 +1,4 @@
+import FavoriteButton from "@/components/FavoriteButton";
 import { books } from "@/data/books";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -27,6 +28,7 @@ export default async function Book({ params }: PropsType) {
         <h2>{year}</h2>
       </div>
       <p>{description}</p>
+      <FavoriteButton slug={slug} />
     </main>
   );
 }
