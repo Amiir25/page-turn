@@ -1,3 +1,5 @@
+import AuthorDetail from "@/components/AuthorDetail";
+import Collapsible from "@/components/Collapsible";
 import FavoriteButton from "@/components/FavoriteButton";
 import { books } from "@/data/books";
 import { notFound } from "next/navigation";
@@ -8,7 +10,7 @@ type PropsType = {
 };
 
 export function generateStaticParams() {
-  return books.map(book => ({ slug: book.slug }));
+  return books.map((book) => ({ slug: book.slug }));
 }
 
 export default async function Book({ params }: PropsType) {
@@ -28,9 +30,13 @@ export default async function Book({ params }: PropsType) {
         <h2>{year}</h2>
       </div>
       <p>{description}</p>
-      <FavoriteButton slug={slug} />
+
+      <div className="flex items-center gap-10">
+        <FavoriteButton slug={slug} />
+        <Collapsible title="About the Author">
+          <AuthorDetail author={author} />
+        </Collapsible>
+      </div>
     </main>
   );
 }
-
-
