@@ -1,4 +1,4 @@
-import AuthorDetail from "@/components/AuthorDetail";
+import AuthorInfo from "@/components/AuthorInfo";
 import Collapsible from "@/components/Collapsible";
 import FavoriteButton from "@/components/FavoriteButton";
 import { books, BookType } from "@/data/books";
@@ -41,7 +41,7 @@ export default async function Book({ params }: PropsType) {
       <div className="flex items-center gap-10">
         <FavoriteButton slug={slug} />
         <Collapsible title="About the Author">
-          <AuthorDetail author={author} />
+          <AuthorInfo author={author} />
         </Collapsible>
       </div>
 

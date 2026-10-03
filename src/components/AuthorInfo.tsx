@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AuthorDetail({ author }: { author: string }) {
+export default function AuthorInfo({ author }: { author: string }) {
   return (
     <div>
       <h2>{author}</h2>
