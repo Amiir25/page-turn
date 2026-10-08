@@ -7,5 +7,5 @@ export async function GET(request: NextRequest) {
         ? books.find(book => book.title.toLowerCase().includes(q))
         : books
     
-    return NextResponse.json(result);
+    return NextResponse.json(result || "Search not found");
 }
