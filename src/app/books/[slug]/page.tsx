@@ -2,8 +2,10 @@ import AuthorInfo from "@/components/AuthorInfo";
 import Collapsible from "@/components/Collapsible";
 import FavoriteButton from "@/components/FavoriteButton";
 import { books, BookType } from "@/data/books";
+import { reviews } from "@/lib/store";
 import { notFound } from "next/navigation";
 import React from "react";
+import { addReview } from "./actions";
 
 type PropsType = {
   params: Promise<{ slug: string }>;
@@ -16,6 +18,7 @@ export function generateStaticParams() {
 export default async function Book({ params }: PropsType) {
   const { slug } = await params;
   const selectedBook = books.find((book) => book.slug === slug);
+  const bookReviews = reviews.filter(r => r.slug === slug);
 
   if (!selectedBook) {
     notFound();
@@ -44,6 +47,23 @@ export default async function Book({ params }: PropsType) {
           <AuthorInfo author={author} />
         </Collapsible>
       </div>
+
+      {/* Review form */}
+      <form action={addReview} className="flex flex-col max-w-100">
+        <input type="hidden" name="slug" value={slug}  className="border border-gray-500"/>
+        <input type="text" name="name" placeholder="Your name"  className="border border-gray-500"/>
+        <textarea name="text" placeholder="Your review" className="border border-gray-500"></textarea>
+        <button type="submit" className="bg-gray-800 p-4 rounded">Post Review</button>
+      </form>
+
+      <ul>
+        <h2>Past Reviews</h2>
+        {bookReviews.map((r) => (
+          <li key={r.createdAt}>
+            <strong>{r.name}</strong>: {r.text}
+          </li>
+        ))}
+      </ul>
 
       {/* Related books */}
       <div className="mt-8">
