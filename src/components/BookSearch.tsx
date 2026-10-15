@@ -3,6 +3,7 @@
 import { BookType } from "@/data/books";
 import Link from "next/link";
 import React, { useState } from "react";
+import FavoriteButton from "./FavoriteButton";
 
 export default function BookSearch({ books }: { books: BookType[] }) {
   const [filteredBooks, setFilteredBooks] = useState(books);
@@ -46,6 +47,7 @@ export default function BookSearch({ books }: { books: BookType[] }) {
                   <h2>{author}</h2>
                   <h2>{year}</h2>
                 </div>
+                <FavoriteButton slug={slug} />
               </article>
             </Link>
           );
