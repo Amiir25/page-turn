@@ -1,34 +1,51 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
+import { fetcher } from "@/lib/fetcher";
+import useSWR from "swr";
+
+type Favorites = { favorites: string[] };
 
 export default function FavoriteButton({ slug }: { slug: string }) {
-    const [favorited, setFavorited] = useState(false);
-    const [errMeg, setErrMsg] = useState("");
+  const { data, error, isLoading, mutate } = useSWR<Favorites>(
+    "/api/favorites",
+    fetcher,
+  );
+  const favorited = data?.favorites.includes(slug) ?? false;
 
-    useEffect(() => {
-      fetch("/api/favorites")
-        .then(r => r.json())
-        .then(d => setFavorited(d.favorites.includes(slug)));
-    }, [slug])
+  async function toggle() {
+    const next = !favorited;
+    const apply = (cur?: Favorites): Favorites => {
+      const set = new Set(cur?.favorites ?? []);
+      if (next) set.add(slug);
+      else set.delete(slug);
+      return { favorites: [...set] };
+    };
 
-    const handleFavorite = async () => {
-      setFavorited(!favorited);
-      const res = await fetch("http://localhost:3000/api/favorites", {
-        method: favorited ? "DELETE" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug }),
-      })
+    await mutate(
+      async (cur) => {
+        const res = await fetch("/api/favorites", {
+          method: next ? "POST" : "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug }),
+        });
+        if (!res.ok) throw new Error("Failed");
+        return apply(cur);
+      },
+      { optimisticData: apply, rollbackOnError: true, revalidate: true },
+    );
+  }
 
-    }
+  if (isLoading) return <span>Loading status...</span>;
+  if (error) return <span>Coudn't load</span>;
 
   return (
     <button
-        onClick={handleFavorite}
-        aria-label={`Favorited ${slug}`}
-        className='rounded border px-3 py-1'
+      onClick={toggle}
+      disabled={isLoading}
+      aria-label={`Favorited ${slug}`}
+      className="rounded border px-3 py-1"
     >
-        {favorited ? "❤️ Saved" : "🤍 Save"}
+      {favorited ? "❤️ Saved" : "🤍 Save"}
     </button>
-  )
+  );
 }
